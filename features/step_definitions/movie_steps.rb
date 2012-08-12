@@ -14,9 +14,13 @@ end
 #   on the same page
 
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
+  regexp_string = ".*#{e1}.*#{e2}.*"
+  regexp = Regexp.new(regexp_string, Regexp::MULTILINE)
+  matches = regexp.match page.body
+  assert matches, "#{e1} did not occur before #{e2}"
   #  ensure that that e1 occurs before e2.
   #  page.content  is the entire content of the page as a string.
-  flunk "Unimplemented"
+  
 end
 
 # Make it easier to express checking or unchecking several boxes at once
