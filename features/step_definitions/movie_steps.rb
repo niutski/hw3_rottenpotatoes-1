@@ -33,5 +33,13 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
 	When I #{uncheck}check "ratings_#{rating.strip}"
     } 
   end
+end
+Then /I should see all of the movies/ do
+   movie_count = Movie.all.size
+   rows = all("#movies tbody tr").count.to_i
+   assert rows == movie_count, "Movie count does not match"
+end
 
+Then /I should not see any of the movies/ do
+   assert all("#movies tbody tr").count == 0, "No movies should be visible"
 end

@@ -23,13 +23,8 @@ Background: movies have been added to database
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
   Given I am on the RottenPotatoes homepage
-  #When I check "ratings_PG" 
   And I check the following ratings: R,PG
   And I uncheck the following ratings: G, PG-13, NC-17
-  #And I check"ratings_R"
-  #And I uncheck "ratings_G"
-  #And I uncheck "ratings_PG-13"
-  #And I uncheck "ratings_NC-17"
   When I press "Refresh"
   Then I am on the RottenPotatoes home page
   And I should see "The Incredibles" 
@@ -45,7 +40,14 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   
   
 Scenario: no ratings selected
-  # see assignment
+  Given I am on the RottenPotatoes homepage
+  And I uncheck the following ratings: R, PG, G, PG-13, NC-17
+  When I press "Refresh"
+  Then I should not see any of the movies
 
 Scenario: all ratings selected
+  Given I am on the RottenPotatoes homepage
+  And I check the following ratings: R, PG, G, PG-13, NC-17
+  When I press "Refresh"
+  Then I should see all of the movies
   # see assignment
